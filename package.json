@@ -1,0 +1,17 @@
+{
+  "name": "workout-tracker2",
+  "version": "1.0.0",
+  "description": "A workout tracker app built on the MERN stack.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./backend/server"
+  },
+  "author": "Ahmed Muni",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
