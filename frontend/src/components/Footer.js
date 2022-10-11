@@ -12,7 +12,7 @@ const Footer = () => {
         }}>
             <Container>
                 <Row>
-                    <Col className='text-center py-3'>Copyright &copy; Workout Tracker</Col>
+                    <Col className='text-center py-3'>Copyright &copy; Peak Tracker</Col>
                 </Row>
             </Container>
         </footer>
