@@ -48,8 +48,8 @@ const Header = () => {
                                 Exercises
                             </Link>
 
-                            <Link to={"history"} style={linkStyle}>
-                                History
+                            <Link to={"progress"} style={linkStyle}>
+                                Progress
                             </Link>
 
                             <Nav.Item style={linkStyle} onClick={() => {

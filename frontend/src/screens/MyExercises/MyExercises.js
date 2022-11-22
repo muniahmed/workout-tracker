@@ -6,21 +6,40 @@ import axios from 'axios';
 import ErrorMessage from '../../components/ErrorMessage';
 import Loading from '../../components/Loading';
 
+const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
 const MyRoutines = () => {
     const [exercises, setExercises] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const deleteHandler = (id) => {
+    const deleteHandler = async (id, index) => {
         if (window.confirm("Are you sure?")) {
+
+            try {
+                const config = {
+                    headers: {
+                        Authorization: `Bearer ${userInfo.token}`
+                    },
+                };
+
+                setLoading(true);
+                await axios.delete(`/api/exercises/${id}`, config);
+
+                exercises.splice(index, 1);
+
+                window.location.reload(false);
+
+            } catch (error) {
+                setError(error.response.data.message);
+                setLoading(false);
+            }
 
         }
     }
 
 
     const fetchExercises = async () => {
-        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
         try {
             const config = {
@@ -47,7 +66,7 @@ const MyRoutines = () => {
     }, [])
 
     return (
-        <MainScreen title='Welcome Back Ahmed'>
+        <MainScreen title={`Welcome Back ${userInfo.name}`} >
             <Link to='/addexercise'>
                 <Button style={{ marginLeft: 10, marginBottom: 6 }} size='lg'>
                     Add New Exercise
@@ -56,7 +75,7 @@ const MyRoutines = () => {
             {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
             {loading && <Loading />}
 
-            {exercises.map(exercise => (
+            {exercises.map((exercise, index) => (
                 <Accordion key={exercise._id}>
                     <Card className='my-2'>
                         <Accordion.Header style={{ display: "flex" }}>
@@ -71,7 +90,7 @@ const MyRoutines = () => {
 
                             <div>
                                 <Button >Edit</Button>
-                                <Button variant='danger' className='mx-2' onClick={() => deleteHandler(exercise._id)}>Delete</Button>
+                                <Button variant='danger' className='mx-2' onClick={() => deleteHandler(exercise._id, exercise.index)}>Delete</Button>
                             </div>
                         </Accordion.Header>
                         <Accordion.Body>
